@@ -3,8 +3,9 @@ Created on Dec 1, 2009
 
 @author: changwang
 '''
+
 import unittest
-from edu.wmich.efficientroute.utils import matrix, set_factory, assign_set
+from edu.wmich.efficientroute.utils import matrix, set_factory, assign_set, compute_links, substitute_dash
 from edu.wmich.efficientroute.datastructure import Node
 
 class Test(unittest.TestCase):
@@ -17,9 +18,16 @@ class Test(unittest.TestCase):
         self.sets_13 = set_factory(self.matrix_13[1])
 
     def testMatrix(self):
-        self.assertEqual(self.matrix_7, (False, [[4, 5], [6, 7]]))
-        self.assertEqual(matrix(8), (True, [[5, 6, 7], [8, '_', '_'], ['_', '_', '_']]))
-        self.assertEqual(self.matrix_13, (False, [[5, 6, 7], [8, 9, 10], [11, 12, 13]]))
+        self.assertEqual(self.matrix_7, (False, [[4, 5], [6, 7]], []))
+        self.assertEqual(matrix(8), (True, [[5, 6, 7], [8, '_', '_'], ['_', '_', '_']], [(1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]))
+        self.assertEqual(self.matrix_13, (False, [[5, 6, 7], [8, 9, 10], [11, 12, 13]], []))
+        
+    def testReversedMatrix(self):
+        #self.assertEqual(reversed(self.matrix_7[1]), [[6, 7], [4, 5]])
+        it = reversed(self.matrix_7[1])
+        self.assertEqual(it.next(), [6, 7])
+        self.assertEqual(it.next(), [4, 5])
+        #self.assertEqual(it.next(), '')
 
     def testSetFactory(self):
         self.assertEqual(self.sets_7,
@@ -90,6 +98,38 @@ class Test(unittest.TestCase):
         
         self.assertEqual(assign_set(self.sets_7), nodes_7)
         
+#    def testAssignSet6(self):
+#        nodes_6 = []
+#        node_6_1 = Node(1)
+#        node_6_1.communication_set = [1, 2, 3]
+#        nodes_6.append(node_6_1)
+#        
+#        node_6_4 = Node(4)
+#        node_6_4.communication_set = [1, 4, 5]
+#        nodes_6.append(node_6_4)
+#        
+#        node_6_6 = Node(6)
+#        node_6_6.communication_set = [1, 6, 7]
+#        nodes_6.append(node_6_6)
+#        
+#        node_6_2 = Node(2)
+#        node_6_2.communication_set = [2, 4, 6]
+#        nodes_6.append(node_6_2)
+#        
+#        node_6_5 = Node(5)
+#        node_6_5.communication_set = [2, 5, 7]
+#        nodes_6.append(node_6_5)
+#        
+#        node_6_7 = Node(7)
+#        node_6_7.communication_set = [3, 4, 7]
+#        nodes_6.append(node_6_7)
+#        
+#        node_6_3 = Node(3)
+#        node_6_3.communication_set = [3, 5, 6]
+#        nodes_6.append(node_6_3)
+#        
+#        self.assertEqual(assign_set(set_factory(matrix(6)[1])), nodes_6)
+#        
     def testAssignSet13(self):
         
         nodes_13 = []
@@ -151,6 +191,32 @@ class Test(unittest.TestCase):
         self.assertEqual(len(assign_set(self.sets_7)), 7)
         self.assertEqual(len(assign_set(self.sets_13)), 13)
         
+    def testComputeLinks(self):
+        self.assertEqual(compute_links(set_factory(matrix(7)[1])), 14)
+        #self.assertEqual(compute_links(set_factory(matrix(6)[1])), 10)
+        #self.assertEqual(compute_links(set_factory(matrix(7)[1])), 14)
+        #self.assertEqual(compute_links(set_factory(matrix(13)[1])), 39)
+        
+#    def testSubstituteDash(self):
+#        self.assertEqual(substitute_dash(self.matrix_7), ([[1, 2, 3], [1, 4, 5], [1, 6, 7]], 
+#                          [[2, 4, 6], [2, 5, 7]], 
+#                          [[3, 4, 7], [3, 5, 6]]))
+#        
+#        self.assertEqual(substitute_dash(matrix(6)), ([[1, 2, 3], [1, 4, 5], [1, 6, '_']], 
+#                          [[2, 4, 6], [2, 5, '_']], 
+#                          [[3, 4, '_'], [3, 5, 6]]))
+#    
+    
+    def testSubstituteDash(self):
+        #self.assertEqual(substitute_dash(matrix(5)[1], 5), '')
+        self.assertEqual(substitute_dash(matrix(10)[1], 10), 3)
+    
+#    def testNewMatrix(self):
+#        self.assertEqual(new_matrix(self.matrix_7[1]), [[1, 2, 3], [4, 5], [6, 7]])
+#        self.assertEqual(new_matrix(matrix(5)[1]), [[1, 2, 3], [4, 5], ['_', '_']])
+#        self.assertEqual(new_matrix(matrix(6)[1]), [[1, 2, 3], [4, 5], [6, '_']])
+#        self.assertEqual(new_matrix(self.matrix_13[1]), [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10], [11, 12, 13]])
+    
     def tearDown(self):
         del self.matrix_7
         del self.matrix_13

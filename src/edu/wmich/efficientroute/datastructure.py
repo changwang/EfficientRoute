@@ -28,4 +28,4 @@ class Node:
     def __repr__(self):
         ''' This method is used to help debug, 
         which give the console a readable information. '''
-        return 'Node: ' + str(self.value)
+        return 'Node: ' + str(self.value) + ' neighbours are: ' + str([x for x in self.communication_set])

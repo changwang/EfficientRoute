@@ -13,7 +13,7 @@ uses the request sets to determine the next hop for the communication between an
 
 5. For each run randomly select 20 pairs of sites and apply the routing you have designed at 2.above 
 and calculate for each case (N= 13, 9) the communication cost in hops.
-. 
+ 
 6. Networks with static routings maintain a table at each site that 
 defines the shortest paths to be followed when messages are sent to other sites. 
 Given that the routing for Maekawa networks is dynamic, 
