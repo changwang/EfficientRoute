@@ -71,7 +71,37 @@ def random_run(num):
         print 
     print 'Total communication cost is: %d' % communication_cost
     
+def route_transform(network):
+    sort_nodes = network.nodes
+    sort_nodes.sort(cmp=lambda x, y: cmp(x.value, y.value))
+    for node in sort_nodes:
+        print "****************************************"
+        print "Dynamic routing for node %d" % node.value
+        for i in range(1, network.size()+1):
+            if node.value <> i:
+                route = route_selector(node, network.getNode(i))
+                print " ➙ ".join(str(v) for v in route) + " " ,
+        print
+        print "****************************************"
+
+def network_factory(num):
+    network = Network()
+    m = create_matrix(num)
+    
+    mat = m[1]
+    indexes = []
+    
+    if m[0] == True:
+        indexes = m[2]
+        mat = substitute_all_dash(mat, num, indexes)
+    
+    sets = set_factory(mat)
+    
+    network.nodes = assign_set(sets)
+    return network
 
 if __name__ == '__main__':
-    random_run(9)
+    #random_run(9)
     #random_run(13)
+    network = network_factory(13)
+    route_transform(network)
