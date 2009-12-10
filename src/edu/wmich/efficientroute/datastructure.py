@@ -28,4 +28,19 @@ class Node:
     def __repr__(self):
         ''' This method is used to help debug, 
         which give the console a readable information. '''
-        return 'Node: ' + str(self.value) + ' neighbours are: ' + str([x for x in self.communication_set])
+        return 'Site: ' + str(self.value) + ', sites in the same communication set are: ' + str([x for x in self.communication_set])
+    
+class Network:
+    def __init__(self):
+        self.nodes = []
+        
+    def getNode(self, value):
+        node = Node(value)
+        if node in self.nodes:
+            return self.nodes[self.nodes.index(node)]
+        else:
+            print "There is no node whose value is: " + str(value)
+            return None
+    
+    def size(self):
+        return len(self.nodes)
