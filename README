@@ -16,8 +16,8 @@ and calculate for each case (N= 13, 9) the communication cost in hops.
  
 6. Networks with static routings maintain a table at each site that 
 defines the shortest paths to be followed when messages are sent to other sites. 
-Given that the routing for Maekawa networks is dynamic, 
-distributed and efficient we are looking for a way to embed a Maekawa graph to a given graph 
+Given that the routing for Maekawa networks is dynamic, distributed and efficient.
+We are looking for a way to embed a Maekawa graph to a given graph 
 (for an existing network) with the same number of sites 
 so we can transform the static network routing to a dynamic and distributed routing.
 The embedding should create virtual connections in the network suggested by the embedding of the Maekawa network on to it. 
@@ -40,7 +40,7 @@ For the illustration you must have the two Maekawa graphs and two graphs
 The graphs should be of your choice. 
 For each site of the graphs a routing table should be associated with the shortest paths of routing.
 Apply your algorithm to the two pairs of graphs and indicate in a clear way 
-all virtual paths crated and in each case the average length of the virtual paths.
+all virtual paths created and in each case the average length of the virtual paths.
 Describe for each case how the routing on the network graphs can be transformed to 
 dynamic routing with minimum storage in each site of some of the virtual paths.
 
